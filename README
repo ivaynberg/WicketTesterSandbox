@@ -1,0 +1,7 @@
+This project tries to replace WicketTester with a better approach. The biggest problem with WicketTester is that most of the code tries to literally hack the request to emulate browser functions such as link clicking and form submissions. Even worse, there are a lot of hacks to emulate ajax-related functions.
+
+By using env-js we can completely elimiate all these hacks and simply WicketTester by moving all the client-side emulation hacks into env-js where they would be properly emulated and executed. WicketTester would then become a simple bridge between the user's code and the env-js runtime.
+
+The current problem is that env-js is incomplete in some places and buggy in others. It does not yet properly support XHR which is a blocker for this project.
+
+If you wish to play with this you have to use my env-js clone and run RhinoTest unit test.
