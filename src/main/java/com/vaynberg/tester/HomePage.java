@@ -24,6 +24,7 @@ public class HomePage extends WebPage {
 			public void onClick(AjaxRequestTarget target) {
 				counter++;
 				target.addComponent(label);
+				System.out.println("CLICKED!");
 			}
 			
 			@Override

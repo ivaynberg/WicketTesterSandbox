@@ -1,5 +1,6 @@
 package com.vaynberg.tester;
 
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.mock.MockSessionStore;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.session.ISessionStore;
@@ -26,14 +27,15 @@ public class WicketApplication extends WebApplication {
 	}
 
 	@Override
-	public String getConfigurationType() {
-		return DEPLOYMENT;
+	public RuntimeConfigurationType getConfigurationType() {
+		return RuntimeConfigurationType.DEPLOYMENT;
 	}
-
+	
 	@Override
 	protected void init() {
 		super.init();
-		setSessionStoreProvider(ValueProvider.<ISessionStore>of(new MockSessionStore()));
+		setSessionStoreProvider(ValueProvider
+				.<ISessionStore> of(new MockSessionStore()));
 	}
 
 }

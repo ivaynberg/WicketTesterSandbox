@@ -1,5 +1,7 @@
 package com.vaynberg.tester;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.mortbay.jetty.webapp.WebAppContext;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -86,20 +89,16 @@ public class HtmlUnitTest {
 		Timer timer = timer("request1");
 		
 		WebClient client=new WebClient();
-		HtmlPage page=client.getPage("http://localhost:8080/wicket/bookmarkable/com.mycompany.HomePage");
+		client.setAjaxController(new NicelyResynchronizingAjaxController());
+		HtmlPage page=client.getPage("http://localhost:8080");
 
 		HtmlAnchor anchor=(HtmlAnchor) page.getElementById("link");
-		
-		System.out.println(anchor.asXml());
-
 		HtmlSpan span=(HtmlSpan) page.getElementById("counter");
-		System.out.println(span.asXml());
-
-		
+		assertEquals("0", span.getTextContent().trim());
 		page=anchor.click();
-		
+		client.waitForBackgroundJavaScript(10000);
 		span=(HtmlSpan) page.getElementById("counter");
-		System.out.println(span.asXml());
+		assertEquals("1", span.getTextContent().trim());
 		
 		timer.stop();
 	}
