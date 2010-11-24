@@ -69,44 +69,6 @@ public class HtmlUnitTest {
 		return timer;
 	}
 
-	public void startServer() throws Exception {
-		Timer timer = timer("server-startup");
-		server = new Server();
-		SocketConnector connector = new SocketConnector();
-
-		// Set some timeout options to make debugging easier.
-		connector.setMaxIdleTime(1000 * 60 * 60);
-		connector.setSoLingerTime(-1);
-		connector.setPort(8080);
-		server.setConnectors(new Connector[] { connector });
-
-		WebAppContext bb = new WebAppContext();
-		bb.setServer(server);
-		bb.setContextPath("/");
-		bb.setWar("src/main/webapp");
-
-		server.addHandler(bb);
-
-		server.start();
-
-		timer.stop();
-	}
-
-	public void stopServer() throws Exception {
-		Timer timer = timer("server-shutdown");
-		server.stop();
-		server.join();
-		timer.stop();
-	}
-
-	public void createTester() {
-		tester = new WicketTester(new WicketApplication());
-	}
-
-	public void destroyTester() {
-		tester.destroy();
-	}
-
 	ServletTester st;
 
 	@Before
@@ -224,8 +186,12 @@ public class HtmlUnitTest {
 		span = (HtmlSpan) page.getElementById("counter");
 		assertEquals("2", span.getTextContent().trim());
 		tmp.stop();
+	
+		client.closeAllWindows();
 		
 		timer.stop();
+		
+	
 	}
 
 }

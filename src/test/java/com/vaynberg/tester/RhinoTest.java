@@ -28,13 +28,13 @@ public class RhinoTest {
 	private Context js;
 	private Scriptable scope;
 
-	@BeforeClass
+//	@BeforeClass
 	public static void initTimers() {
 		timers = new ArrayList<Timer>();
 		timer("overall");
 	}
 
-	@AfterClass
+//	@AfterClass
 	public static void printTimingInfo() {
 		for (Timer timer : timers) {
 			System.out.println(timer);
@@ -47,7 +47,7 @@ public class RhinoTest {
 		return timer;
 	}
 
-	@Before
+//	@Before
 	public void startServer() throws Exception {
 		Timer timer = timer("server-startup");
 		server = new Server();
@@ -69,7 +69,7 @@ public class RhinoTest {
 		timer.stop();
 	}
 
-	@After
+//	@After
 	public void stopServer() throws Exception {
 		Timer timer = timer("server-shutdown");
 		server.stop();
@@ -77,7 +77,7 @@ public class RhinoTest {
 		timer.stop();
 	}
 
-	@Before
+//	@Before
 	public void startJavascript() throws FileNotFoundException, IOException {
 		Timer timer = timer("javascript-startup");
 
@@ -105,14 +105,14 @@ public class RhinoTest {
 		return new File("c:/dev/env-js/git/dist");
 	}
 
-	@After
+//	@After
 	public void stopJavascript() {
 		Timer timer = timer("javascript-shutdown");
 		Context.exit();
 		timer.stop();
 	}
 
-	@Test
+//	@Test
 	public void testThis() throws Exception {
 		Timer timer = timer("request1");
 		final File exec = new File("src/main/webapp/exec.js");
