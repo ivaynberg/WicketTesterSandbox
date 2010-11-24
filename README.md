@@ -21,6 +21,7 @@ Todo
 - See if its possible to improve performance
   - first test takes 1.7 seconds
     - com.gargoylesoftware.htmlunit.html.HTMLParser.parse takes 1.3 of those seconds
+
 Done
 ----
 - Remove the network - have a basic WicketTester like thing that can respond to URLs so all transfers are done in-memory to speed things up
